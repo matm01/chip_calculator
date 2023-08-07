@@ -63,6 +63,7 @@ def get_chip_list(players, chips,  goal, max_chip):
 
 ceramic = {5: 50, 10: 49, 25: 79, 100: 70, 500: 25, 1000: 25}
 plastic = {0:0, 25:100, 50:50, 100:150, 500:50, 1000:50}
+numbers = [':zero:', ':one:', ':two:', ':three:', ':four:', ':five:', ':six:', ':seven:', ':eight:', ':nine:', ':one: :zero:', ':one: :one:', ':one: :two:']
 
 st.markdown('# This is **:red[ChipCalc]**! Your handy poker chip calculator :clubs: :hearts:')
 
@@ -103,17 +104,17 @@ elif not_enough_chips:
 else:
     if gear == 'ceramic':
         c5.image(image='pics/5.png')
-        c5.markdown(f'# x{final[0]}')
+        c5.markdown(f'# x{numbers[final[0]]}')
         c10.image(image='pics/10.png')
-        c10.markdown(f'# x{final[1]}')
+        c10.markdown(f'# x{numbers[final[1]]}')
         c25.image(image='pics/25.png')
-        c25.markdown(f'# x{final[2]}')
+        c25.markdown(f'# x{numbers[final[2]]}')
         c100.image(image='pics/100.png')
-        c100.markdown(f'# x{final[3]}')
+        c100.markdown(f'# x{numbers[final[3]]}')
         c500.image(image='pics/500.png')
-        c500.markdown(f'# x{final[4]}')
+        c500.markdown(f'# x{numbers[final[4]]}')
         c1000.image(image='pics/1000.png')
-        c1000.markdown(f'# x{final[5]}')
+        c1000.markdown(f'# x{numbers[final[5]]}')
     
     else:
         c5.image(image='pics/p25.png')
