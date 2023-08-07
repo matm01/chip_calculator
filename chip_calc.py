@@ -64,7 +64,7 @@ def get_chip_list(players, chips,  goal, max_chip):
 ceramic = {5: 50, 10: 49, 25: 79, 100: 70, 500: 25, 1000: 25}
 plastic = {0:0, 25:100, 50:50, 100:150, 500:50, 1000:50}
 
-st.markdown(f'# This is ChipCalc! Your handy poker chip calculator')
+st.markdown('# This is **:red[ChipCalc]**! Your handy poker chip calculator :clubs:')
 
 num_of_players = []
 gear = st.selectbox('Select your chips', ('ceramic', 'plastic'))
