@@ -103,6 +103,7 @@ elif not_enough_chips:
 
 else:
     if gear == 'ceramic':
+        c5, c10, c25, c100, c500, c1000 = st.columns([1,1,1,1,1,1])
         c5.image(image='pics/5.png')
         c5.markdown(f'# x{final[0]}')
         c10.image(image='pics/10.png')
@@ -117,6 +118,7 @@ else:
         c1000.markdown(f'# x{final[5]}')
     
     else:
+        c5, c10, c25, c100, c500 = st.columns([1,1,1,1,1])
         c5.image(image='pics/p25.png')
         c5.markdown(f'# x{final[1]}')
         c10.image(image='pics/p50.png')
