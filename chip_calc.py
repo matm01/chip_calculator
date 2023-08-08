@@ -12,24 +12,18 @@ def get_chip_list(players, chips,  goal, max_chip):
     lim = max_val[0] + max_val[1] + max_val[2]
     rest = lim%100
 
-    not_include_0, not_include_1, not_include_2 = 0, 0, 0
-
-    while rest!=0:
-        not_include_2 = rest//values[2]
-        rest = rest-(not_include_2*values[2])
-        not_include_1 = rest//values[1]
-        rest = rest-(not_include_1*values[1])
-        not_include_0 = rest//values[0]
-        rest = rest-(not_include_0*values[0])
-    not_include = np.append(np.array([not_include_0, not_include_1, not_include_2]), [0,0,0])
+    # calculate chips to remove from pool
+    to_remove = [0, 0, 0]
+    if rest != 0:
+        for i in range(2,-1,-1):
+            to_remove[i] = rest//values[i]
+            rest = rest-(to_remove[i]*values[i])
 
     final = [0 for _ in range(len(chips))]
-
-    for i, val in enumerate(max_num[:3]-not_include[:3]):
+    for i, val in enumerate(max_num[:3]-to_remove):
         final[i] = val
     
     rest = 0
-
     for i, val in enumerate(final[:3]):
         rest += final[i]*values[i]
 
