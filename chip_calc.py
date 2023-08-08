@@ -2,6 +2,9 @@ import streamlit as st
 import numpy as np
 
 
+
+
+
 def get_chip_list(players, chips,  goal, max_chip):
 
     final = [0 for _ in range(6)]
@@ -23,34 +26,33 @@ def get_chip_list(players, chips,  goal, max_chip):
     for i, val in enumerate(max_num[:3]-to_remove):
         final[i] = val
     
-    rest = 0
-    for i, val in enumerate(final[:3]):
-        rest += final[i]*values[i]
+    spend = 0
+    for i in range(3):
+        spend += final[i]*values[i]
 
-    rest = goal - rest
-    out_500 = 0
+    rest = goal - spend
 
     if rest/100 <= max_num[3]:
         final[3] = int(rest/100)
     else:
         for i in range(int(rest//500)):
-            test_val = (rest - (500)*(i+1))/100
-            if test_val <= max_num[3]:
-                final[3] = int(test_val)
-                rest = rest - (test_val*100)
-                out_500 = int(rest//500)
+            chips_needed = (rest - (500)*(i+1))/100
+            if chips_needed <= max_num[3]:
+                final[3] = int(chips_needed)
+                rest = rest - (chips_needed*100)
+                c500_needed = int(rest//500)
                 break
 
-    if out_500 > max_num[4]:
+    if c500_needed > max_num[4]:
         for i in range(int(rest//1000)):
-            test_val = (rest - (1000)*(i+1))/500
-            if test_val <= max_num[4]:
-                final[4] = int(test_val)
-                rest = rest - (test_val*500)
+            chips_needed = (rest - (1000)*(i+1))/500
+            if chips_needed <= 5:
+                final[4] = int(chips_needed)
+                rest = rest - (chips_needed*500)
                 final[5] = int(rest//1000)
                 break
     
-    else: final[4] = out_500
+    else: final[4] = c500_needed
 
     return final
 
