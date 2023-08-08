@@ -31,6 +31,7 @@ def get_chip_list(players, chips,  goal, max_chip):
         spend += final[i]*values[i]
 
     rest = goal - spend
+    c500_needed = 0
 
     if rest/100 <= max_num[3]:
         final[3] = int(rest/100)
@@ -72,6 +73,7 @@ if gear == 'ceramic':
     goal = st.number_input('Sum of chips', min_value=500, max_value=4000, step=500, value=1000)
 else:
     goal = st.number_input('Sum of chips', min_value=5000, max_value=10000, step=1000, value=5000)
+
 max_chip = st.select_slider('Max. number of chips:', options=[i for i in range(6,13)], value=10)
 final = get_chip_list(players, chips, goal, max_chip)
 c5, c10, c25, c100, c500, c1000 = st.columns([1,1,1,1,1,1])
