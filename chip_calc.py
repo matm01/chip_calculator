@@ -69,12 +69,8 @@ st.markdown('# This is **:red[ChipCalc]**! Your handy poker chip calculator :clu
 
 num_of_players = []
 gear = st.selectbox('Select your chips', ('ceramic', 'plastic'))
-if gear == 'ceramic':
-    chips=ceramic
-elif gear == 'plastic': 
-    chips=plastic
-
-
+chips = ceramic if gear == 'ceramic' else plastic
+    
 players = st.select_slider('No. of player:', options=[i for i in range(4,11)], value = 8)
 if gear == 'ceramic':
     goal = st.number_input('Sum of chips', min_value=500, max_value=4000, step=500, value=1000)
