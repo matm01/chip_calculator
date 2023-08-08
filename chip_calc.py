@@ -68,7 +68,7 @@ plastic = {0:0, 25:100, 50:50, 100:150, 500:50, 1000:50}
 st.markdown('# This is **:red[ChipCalc]**! Your handy poker chip calculator :spades: :hearts: :diamonds: :clubs:')
 
 num_of_players = []
-gear = st.selectbox('Select your chips', ('ceramic', 'plastic'))
+gear = st.radio('Select your chips', ('ceramic', 'plastic'))
 chips = ceramic if gear == 'ceramic' else plastic
     
 players = st.select_slider('No. of player:', options=[i for i in range(4,11)], value = 8)
