@@ -123,6 +123,3 @@ else:
         c100.markdown(f'# x{final[4]}')
         c500.image(image='pics/p1000.png')
         c500.markdown(f'# x{final[5]}')
-
-
-
