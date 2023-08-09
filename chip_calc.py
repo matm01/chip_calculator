@@ -21,6 +21,7 @@ def get_chip_list(players, chips,  goal, max_chip):
         for i in range(2,-1,-1):
             to_remove[i] = rest//values[i]
             rest = rest-(to_remove[i]*values[i])
+            if rest == 0: break
 
     final = [0 for _ in range(len(chips))]
     for i, val in enumerate(max_num[:3]-to_remove):
@@ -31,29 +32,23 @@ def get_chip_list(players, chips,  goal, max_chip):
         spend += final[i]*values[i]
 
     rest = goal - spend
-    c500_needed = 0
 
-    if rest/100 <= max_num[3]:
-        final[3] = int(rest/100)
-    else:
-        for i in range(int(rest//500)):
-            chips_needed = (rest - (500)*(i+1))/100
-            if chips_needed <= max_num[3]:
-                final[3] = int(chips_needed)
-                rest = rest - (chips_needed*100)
-                c500_needed = int(rest//500)
-                break
-
-    if c500_needed > max_num[4]:
-        for i in range(int(rest//1000)):
-            chips_needed = (rest - (1000)*(i+1))/500
-            if chips_needed <= 5:
-                final[4] = int(chips_needed)
-                rest = rest - (chips_needed*500)
-                final[5] = int(rest//1000)
+    for i in range(3):
+        if rest == 0: break
+        for j in range(max_num[i+3]):
+            test_val = rest - values[i+3] * (max_num[i+3]-j)
+            if test_val == 0 or [False if (i > 1) else (test_val%values[i+4] == 0 and test_val>0)][0]:
+                final[i+3] = max_num[i+3] - j
+                rest = test_val
                 break
     
-    else: final[4] = c500_needed
+    if rest / (max_num[5]*values[5]) > 1:
+        missing = rest-(max_num[5]*values[5])
+        st.markdown(f'# not enough chips! {missing} missing')
+    elif rest != 0: 
+        st.markdown(f'# OOPs something went wrong! error:{rest}')
+
+
 
     return final
 
@@ -78,48 +73,33 @@ max_chip = st.select_slider('Max. number of chips:', options=[i for i in range(6
 final = get_chip_list(players, chips, goal, max_chip)
 c5, c10, c25, c100, c500, c1000 = st.columns([1,1,1,1,1,1])
 
-test_sum = 0
-not_enough_chips = False
-max_num = np.array(list(map(lambda x:x//players, chips.values())))
-
-for i, val in enumerate(final):
-    test_sum += val*list(chips.keys())[i]
-    if final[i] > max_num[i]:
-        not_enough_chips = True
 
 
-if test_sum != goal:
-    st.markdown(f'# OOPs something went wrong')
 
-
-elif not_enough_chips: 
-    st.markdown(f'# not enough chips')
+if gear == 'ceramic':
+    c5, c10, c25, c100, c500, c1000 = st.columns([1,1,1,1,1,1])
+    c5.image(image='pics/5.png')
+    c5.markdown(f'# x{final[0]}')
+    c10.image(image='pics/10.png')
+    c10.markdown(f'# x{final[1]}')
+    c25.image(image='pics/25.png')
+    c25.markdown(f'# x{final[2]}')
+    c100.image(image='pics/100.png')
+    c100.markdown(f'# x{final[3]}')
+    c500.image(image='pics/500.png')
+    c500.markdown(f'# x{final[4]}')
+    c1000.image(image='pics/1000.png')
+    c1000.markdown(f'# x{final[5]}')
 
 else:
-    if gear == 'ceramic':
-        c5, c10, c25, c100, c500, c1000 = st.columns([1,1,1,1,1,1])
-        c5.image(image='pics/5.png')
-        c5.markdown(f'# x{final[0]}')
-        c10.image(image='pics/10.png')
-        c10.markdown(f'# x{final[1]}')
-        c25.image(image='pics/25.png')
-        c25.markdown(f'# x{final[2]}')
-        c100.image(image='pics/100.png')
-        c100.markdown(f'# x{final[3]}')
-        c500.image(image='pics/500.png')
-        c500.markdown(f'# x{final[4]}')
-        c1000.image(image='pics/1000.png')
-        c1000.markdown(f'# x{final[5]}')
-    
-    else:
-        c5, c10, c25, c100, c500 = st.columns([1,1,1,1,1])
-        c5.image(image='pics/p25.png')
-        c5.markdown(f'# x{final[1]}')
-        c10.image(image='pics/p50.png')
-        c10.markdown(f'# x{final[2]}')
-        c25.image(image='pics/p100.png')
-        c25.markdown(f'# x{final[3]}')
-        c100.image(image='pics/p500.png')
-        c100.markdown(f'# x{final[4]}')
-        c500.image(image='pics/p1000.png')
-        c500.markdown(f'# x{final[5]}')
+    c5, c10, c25, c100, c500 = st.columns([1,1,1,1,1])
+    c5.image(image='pics/p25.png')
+    c5.markdown(f'# x{final[1]}')
+    c10.image(image='pics/p50.png')
+    c10.markdown(f'# x{final[2]}')
+    c25.image(image='pics/p100.png')
+    c25.markdown(f'# x{final[3]}')
+    c100.image(image='pics/p500.png')
+    c100.markdown(f'# x{final[4]}')
+    c500.image(image='pics/p1000.png')
+    c500.markdown(f'# x{final[5]}')
