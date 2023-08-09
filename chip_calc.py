@@ -44,6 +44,7 @@ def get_chip_list(players, chips,  goal, max_chip):
     
     if rest / (max_num[5]*values[5]) > 1:
         missing = rest-(max_num[5]*values[5])
+        final[5] = max_num[5]
         st.markdown(f'# not enough chips! {missing} missing')
     elif rest != 0: 
         st.markdown(f'# OOPs something went wrong! error:{rest}')
